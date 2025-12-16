@@ -95,7 +95,7 @@ main() {
 		-cf "${dest}".tar "$(basename ${dest})"
 	xz -9 -T 0 "${dest}".tar
 	file "${dest}".tar.xz
-	mv "${dest}".tar.xz "${OUTPUT_DIR}/${dest}.tar.xz"
+	mv "${dest}".tar.xz "${OUTPUT_DIR}/rust-${version}-${target}.tar.xz"
 
 	ebegin "Nuking ${tmpdir} and temp files"
 	rm -rf -- "${tmpdir}"

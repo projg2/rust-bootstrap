@@ -5,12 +5,12 @@ read -p "Enter ebuild commit id: " EBUILD_COMMIT_ID
 
 : ${PVR?:"Version is required."} ${EBUILD_COMMIT_ID?:"Ebuild commit id is required."}
 
-EBUILD_SHA256=$(curl "https://raw.githubusercontent.com/gentoo/gentoo/${EBUILD_COMMIT_ID}/dev-lang/rust/rust-${PVR}.ebuild" | sha256sum | cut -d' ' -f1)
+EBUILD_SHA256=$(curl "https://raw.githubusercontent.com/gentoo/gentoo/${EBUILD_COMMIT_ID}/dev-lang/rust/rust-${PVR}_p1.ebuild" | sha256sum | cut -d' ' -f1)
 echo "Ebuild SHA256: ${EBUILD_SHA256}"
 
 port=$((RANDOM % 10000 + 40000))
 
-echo "On devbox, run 'systemd-run --user timeout 10m python -m http.server ${port} -d /home/arthurzam/rust-bin' to serve the files"
+echo "On devbox, run 'systemd-run --user timeout 1h python -m http.server ${port} -d /home/arthurzam/rust-bin' to serve the files"
 read -p "Press ENTER to continue"
 
 
@@ -27,7 +27,7 @@ else
 	git commit --signoff --gpg-sign --file=- <<- EOF
 		rust-${PVR}
 
-		Based on https://github.com/gentoo/gentoo/blob/${EBUILD_COMMIT_ID}/dev-lang/rust/rust-${PVR}.ebuild
+		Based on https://github.com/gentoo/gentoo/blob/${EBUILD_COMMIT_ID}/dev-lang/rust/rust-${PVR}_p1.ebuild
 
 		ebuild sha256: ${EBUILD_SHA256}
 	EOF
